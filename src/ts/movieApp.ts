@@ -1,5 +1,5 @@
-import { IMovie } from "./models/Movie";
-import { getData } from "./services/movieservice";
+import { IMovie } from "./models/IMovie";
+import { getData } from "./services/movieService";
 
 let movies: IMovie[] = [];
 
