@@ -4,16 +4,17 @@ export const getData = async (searchText: string): Promise<IMovie[]> => {
     return new Promise((resolve, reject) => {
         switch (searchText) {
             case 'singleMovie':
-                resolve([{ Title: 'singleMovieTitle', imdbID: '', Type: '', Poster: '', Year: '' }]);
+                resolve([{ Title: 'singleMovieTitle', imdbID: '1', Type: 'adventure', Poster: 'singleMoviePoster', Year: '1990' }]);
                 break;
-            case 'Snoots':
-                resolve([{ Title: 'Snoots', imdbID: '', Type: '', Poster: '', Year: '' }]);
-                break;
-            case 'f':
-                resolve([]);
+            case 'multipleMovies':
+                resolve([
+                    { Title: 'multiMoviesTitle1', imdbID: '2', Type: 'adventure', Poster: 'multiMoviePoster1', Year: '1991' },
+                    { Title: 'multiMoviesTitle2', imdbID: '3', Type: 'horror', Poster: 'multiMoviePoster2', Year: '1992' },
+                    { Title: 'multiMoviesTitle3', imdbID: '4', Type: 'drama', Poster: 'multiMoviePoster3', Year: '1993' }
+                ]);
                 break;
             default:
-                reject([]);
+                reject([{ Title: '', imdbID: '', Type: '', Poster: '', Year: '' }]);
                 break;
         }
     });
