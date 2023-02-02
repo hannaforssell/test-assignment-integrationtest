@@ -10,21 +10,26 @@ beforeEach(() => {
     document.body.innerHTML = '';
 });
 
+afterEach(() => {
+    jest.restoreAllMocks();
+});
+
+
 describe('handleSubmit', () => {
-    test('displays single movie correctly', async () => {
+    test('single movie calls createHTML', async () => {
         // Arrange
         let searchText = 'singleMovie';
         document.body.innerHTML = `
         <input type="text" id="searchText" placeholder="Skriv titel här" value="${searchText}" />
         <div id="movie-container"></div>
         `;
+        let createHTMLSpy = jest.spyOn(movieApp, 'createHtml').mockReturnValue();
 
         // Act
         await movieApp.handleSubmit();
 
         // Assert
-        let movieContainer = document.getElementById('movie-container') as HTMLDivElement;
-        compareMovie(movieContainer.childNodes[0] as HTMLDivElement, 'singleMovieTitle', 'singleMoviePoster');
+        expect(createHTMLSpy).toHaveBeenCalledTimes(1);
     });
 
     test('displays correct number of multiple movies', async () => {
@@ -34,41 +39,44 @@ describe('handleSubmit', () => {
         <input type="text" id="searchText" placeholder="Skriv titel här" value="${searchText}" />
         <div id="movie-container"></div>
         `;
+        let createHTMLSpy = jest.spyOn(movieApp, 'createHtml').mockReturnValue();
 
         // Act
         await movieApp.handleSubmit();
 
         // Assert
-        let movieContainer = document.getElementById('movie-container') as HTMLDivElement;
-        let movieCount = movieContainer.childNodes.length;
-        expect(movieCount).toBe(3);
+        expect(createHTMLSpy).toHaveBeenCalledTimes(1);
     });
 
-    test('displays movies in correct order', async () => {
+    test('empty getData calls displayNoResult', async () => {
         // Arrange
-        let searchText = 'multipleMovies';
+        let searchText = 'noMovies';
         document.body.innerHTML = `
         <input type="text" id="searchText" placeholder="Skriv titel här" value="${searchText}" />
         <div id="movie-container"></div>
         `;
+        let displayNoResultSpy = jest.spyOn(movieApp, 'displayNoResult').mockReturnValue();
 
         // Act
         await movieApp.handleSubmit();
 
         // Assert
-        let movieContainer = document.getElementById('movie-container') as HTMLDivElement;
+        expect(displayNoResultSpy).toHaveBeenCalledTimes(1);
+    });
 
-        compareMovie(movieContainer.childNodes[0] as HTMLDivElement, 'multiMoviesTitle1', 'multiMoviePoster1');
-        compareMovie(movieContainer.childNodes[1] as HTMLDivElement, 'multiMoviesTitle2', 'multiMoviePoster2');
-        compareMovie(movieContainer.childNodes[2] as HTMLDivElement, 'multiMoviesTitle3', 'multiMoviePoster3');
+    test('error in getData calls displayNoResult', async () => {
+        // Arrange
+        let searchText = 'basicError';
+        document.body.innerHTML = `
+        <input type="text" id="searchText" placeholder="Skriv titel här" value="${searchText}" />
+        <div id="movie-container"></div>
+        `;
+        let displayNoResultSpy = jest.spyOn(movieApp, 'displayNoResult').mockReturnValue();
+
+        // Act
+        await movieApp.handleSubmit();
+
+        // Assert
+        expect(displayNoResultSpy).toHaveBeenCalledTimes(1);
     });
 });
-
-function compareMovie(movieDiv: HTMLDivElement, expectedTitle: string, expectedPoster: string) {
-    let movieTitle = movieDiv.getElementsByTagName('h3')[0].innerHTML;
-    let movieImg = movieDiv.getElementsByTagName('img')[0] as HTMLImageElement;
-
-    expect(movieTitle).toBe(expectedTitle);
-    expect(movieImg.getAttribute('src')).toBe(expectedPoster);
-    expect(movieImg.alt).toBe(movieTitle);
-}

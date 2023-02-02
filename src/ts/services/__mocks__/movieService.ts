@@ -13,8 +13,14 @@ export const getData = async (searchText: string): Promise<IMovie[]> => {
                     { Title: 'multiMoviesTitle3', imdbID: '4', Type: 'drama', Poster: 'multiMoviePoster3', Year: '1993' }
                 ]);
                 break;
+            case 'noMovies':
+                resolve([]);
+                break;
+            case 'basicError':
+                reject('basicError');
+                break;
             default:
-                reject([{ Title: '', imdbID: '', Type: '', Poster: '', Year: '' }]);
+                reject();
                 break;
         }
     });
