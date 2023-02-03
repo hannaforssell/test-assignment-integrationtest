@@ -1,4 +1,4 @@
-import { getData } from "../ts/services/movieservice";
+import { getData } from "../ts/services/movieService";
 
 let movies = [
     { Title: 'title1', imdbID: '2', Type: 'adventure', Poster: 'poster1', Year: '1991' },

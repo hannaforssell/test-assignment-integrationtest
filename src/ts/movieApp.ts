@@ -1,5 +1,5 @@
 import { IMovie } from "./models/IMovie";
-import { getData } from "./services/movieservice";
+import { getData } from "./services/movieService";
 
 let movies: IMovie[] = [];
 
@@ -7,7 +7,7 @@ export const init = () => {
   let form = document.getElementById("searchForm") as HTMLFormElement;
   form.addEventListener("submit", (e: SubmitEvent) => {
     e.preventDefault();
-    handleSubmit();
+    exports.handleSubmit();
   });
 };
 
