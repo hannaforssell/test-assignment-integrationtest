@@ -11,7 +11,7 @@ describe('movieSort', () => {
         let multipleMovies = [movie2, movie3, movie1];
 
         // Act
-        movieSort(multipleMovies, true);
+        movieSort(multipleMovies);
 
         // Assert
         expect(multipleMovies[0]).toBe(movie1);
@@ -47,7 +47,7 @@ describe('movieSort', () => {
         let multipleMovies = [movie1, movie2, movie3];
 
         // Act
-        movieSort(multipleMovies, true);
+        movieSort(multipleMovies);
 
         // Assert
         expect(multipleMovies[0]).toBe(movie3);

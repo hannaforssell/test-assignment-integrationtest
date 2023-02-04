@@ -15,3 +15,9 @@ export const movieSort = (movies: IMovie[], desc: boolean = true) => {
     }
   });
 };
+
+// export function movieSort(movies: IMovie[], desc: boolean = true) {
+//   movies.sort((movie1: IMovie, movie2: IMovie) => {
+//     return desc ? movie1.Title.localeCompare(movie2.Title) : movie2.Title.localeCompare(movie1.Title);
+//   })
+// }
